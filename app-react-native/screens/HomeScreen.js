@@ -1,20 +1,26 @@
-import React, {useEffect} from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
 import { getTasks } from '../api';
+import Layout from '../components/Layout';
+
+import TasksList from '../components/TasksList';
 
 const  HomeScreen = () => {
+
+    const [tasks, setTasks] = useState([]);
+
     const loadTasks = async () => {
         const data = await getTasks();
-        console.log(data);
+        setTasks(data);
     }
     
     useEffect(() => {
         loadTasks()
     },[])
     return (
-        <View>
-            <Text>Home screen</Text>
-        </View>
+        <Layout>
+         <TasksList tasks={tasks} />
+        </Layout>
     )
 }
 export default HomeScreen;
